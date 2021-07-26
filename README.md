@@ -15,3 +15,4 @@ How to take the sample of your face or other person face?, follow the instructio
 4)In cascade_trained.py and face_recognize.py add your folder name in list People
 5) train the cascade_trained() by running it
 last) run your face_recognize.py
+.
