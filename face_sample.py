@@ -14,11 +14,11 @@ last) run your face_recognize.py
 import cv2 as cv
 
 # cascade classifier
+# classifier is an algorithem to check if the combine edges and noises making a face or not
+# harrcascade is an inbuilt classifier in opencv
 cascade_face = cv.CascadeClassifier("haarcascade_frontalface_default.xml")
 
 # function to extract only face part
-
-
 def face_extractor(img):
     # convert in gray scale (as grayscale simplifies the algorithm)
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
@@ -47,26 +47,29 @@ while True:
 
     # if face_extractor() return the croped face
     if face_extractor(frame) is not None:
+        
+        detectedFace = face_extractor(frame)
+        
         # increse the count
         count += 1
         # convert each frame into gray
-        face = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-        
+                
         # store path + name + type of image
         path_store_sampleimg = 'sample_images/Brother/user' + str(
             count) + '.jpg'
         # store the click image in mentioned path
-        cv.imwrite(path_store_sampleimg, face)
+        cv.imwrite(path_store_sampleimg, detectedFace)
         
         # text which will count the number of photo clicked
-        putText = cv.putText(face, str(count), (50, 100),
+        putText = cv.putText(frame, str(count), (50, 100),
                              cv.FONT_HERSHEY_COMPLEX, 3, (0, 255, 0), 2)
         
-        cv.imshow("Click face Sample", face)
+        cv.imshow("Click face Sample", frame)
     else:
         print("Face not found")
     
     # with count ==100 it will automaticaly stop
+    # waitkey take time parameter in millisecond
     if cv.waitKey(2) == ord('q') or count == 100:
         break
 
